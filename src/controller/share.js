@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { Router } from 'express';
 import ShareRide from '../model/share';
+import Review from '../model/review';
 import bodyParser from 'body-parser';
 
 export default({ config, db }) => {
@@ -78,6 +79,41 @@ export default({ config, db }) => {
       });
 
     });
+    //add review for particular Advertisement
+    //v1/reviews/add/:id is the path
+     api.post('/reviews/add/:id',(req,res)=>{
+        ShareRide.findById(req.params.id,(err,advertisement)=>{
+          if(err){
+            res.send(err);
+          }
+          let newReview= new Review();
+          newReview.title= req.body.title;
+          newReview.text= req.body.text;
+          newReview.shareride= advertisement._id;
+          newReview.save((err,review)=>{
+            if(err){
+              res.send(err);
+            }
+            advertisement.reviews.push(newReview);
+            advertisement.save(err=>{
+              if(err){
+                res.send(err);
+
+              }
+              res.json({message:"Review Saved"});
+            });
+          });
+        });
+     });
+     //get reviews for a particular /reviews/:id:
+      api.get('/reviews/:id',(req,res)=>{
+        Review.find({shareride:req.params.id},(err,reviews)=>{
+          if(err){
+            res.send(err);
+          }
+          res.json(reviews);
+        });
+      });
 
   return api;
 }
