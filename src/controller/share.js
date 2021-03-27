@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { Router } from 'express';
 import ShareRide from '../model/share';
 import Review from '../model/review';
+import Bidder from '../model/bidder';
 import bodyParser from 'body-parser';
 
 export default({ config, db }) => {
@@ -114,6 +115,33 @@ export default({ config, db }) => {
           res.json(reviews);
         });
       });
+
+      //add bidders for particular ad /bidders/added
+      api.post('/bidders/add/:id',(req,res)=>{
+        ShareRide.findById(req.params.id,(err,advertisement)=>{
+          if(err){
+            res.send(err);
+          }
+          let newBidder= new Bidder();
+          newBidder.userid= req.body.userid;
+          newBidder.bid= req.body.bid;
+          newBidder.shareride=advertisement._id;
+          newBidder.save((err,bidder)=>{
+            if(err){
+              res.send(err);
+            }
+            advertisement.bidders.push(newBidder);
+            advertisement.save(err=>{
+              if(err){
+                res.send(err);
+              }
+              res.json({message:"Bidder added Sucessfully"})
+            });
+          });
+
+        });
+      });
+
 
   return api;
 }

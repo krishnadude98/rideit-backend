@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import Review from './review'
+import Review from './review';
+import Bidder from './bidder'
 let Schema = mongoose.Schema;
 
 let shareRideSchema = new Schema({
@@ -19,7 +20,8 @@ let shareRideSchema = new Schema({
   },
   vehiclemodel:String,
   eamount:String,
-  reviews:[{type:Schema.Types.ObjectId,ref:'Review'}]
+  reviews:[{type:Schema.Types.ObjectId,ref:'Review'}],
+  bidders:[{type:Schema.Types.ObjectId,ref:'Bidder'}]
 });
 
 module.exports = mongoose.model('ShareRide', shareRideSchema);
