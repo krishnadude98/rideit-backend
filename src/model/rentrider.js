@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Review2 from './review2';
 let Schema = mongoose.Schema;
 
 
@@ -11,16 +12,12 @@ let rentRiderSchema= new Schema({
     type:String,
     required:true
   },
-  rating:{
-    type:Number,
-    min:0,
-    max:10,
-    required:true
-  },
+
   imageid:{
     type:String,
     required:true
-  }
+  },
+  reviews:[{type:Schema.Types.ObjectId,ref:'Review2'}]
 });
 
 module.exports= mongoose.model('RentRider',rentRiderSchema);
