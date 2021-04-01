@@ -1,12 +1,32 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-import passportLocalMongoose from 'passport-local-mongoose';
 
-let Account = new Schema({
-  email:String,
 
-  password:String
+let accountSchema = new Schema({
+  email:{
+    type: 'String',
+    required: true,
+    min:6,
+
+  },
+
+  password:{
+    type: 'String',
+    required: true,
+    max:1024,
+    min:6
+  },
+  name:{
+    type: 'String',
+    required: true,
+    max:255,
+    min:6
+  },
+  date:{
+    type:Date,
+    default:Date.now
+  }
 });
 
-Account.plugin(passportLocalMongoose);
-module.exports = mongoose.model('Account', Account);
+
+module.exports = mongoose.model('Account', accountSchema);

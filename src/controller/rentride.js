@@ -3,12 +3,12 @@ import { Router } from 'express';
 import bodyParser from 'body-parser';
 import RentRide from '../model/rentride';
 import Review3 from '../model/review3';
-
+const verify = require('../middleware/authMiddleware')
 export default({ config, db }) => {
   let api = Router();
   //CRUD Create Read Update Delete
   // '/v1/rentride/add
-  api.post('/add', (req, res) => {
+  api.post('/add',(req, res) => {
     let newRide = new RentRide();
     newRide.vehicleno= req.body.vehicleno;
     newRide.licenseno= req.body.licenseno;
@@ -24,7 +24,7 @@ export default({ config, db }) => {
   });
 // to get list of all rides
 // v1/rentride
-  api.get('/',(req,res)=>{
+  api.get('/',verify,(req,res)=>{
     RentRide.find({},(err,Rides)=>{
       if(err){
         res.send(err);

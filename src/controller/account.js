@@ -1,10 +1,14 @@
 import  mongoose from 'mongoose';
 import { Router } from 'express';
 import Account from '../model/account';
-import bodyParser from 'body-parser';
-import passport from 'passport';
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 import config from '../config';
-import {generateAccessToken, respond, authenticate} from '../middleware/authMiddleware';
+import middleWare from '../middleware/authMiddleware';
+
+
+
+
 
 export default ({ config, db }) => {
   let api = Router();
@@ -15,46 +19,52 @@ export default ({ config, db }) => {
   });
 
   // '/v1/account/register'
-  api.post('/register',function(req, res){
-    Account.register(new Account({ username: req.body.email}), req.body.password, (err, account)=> {
-      if (err) {
-        return res.status(500).send('An error occurred: ' + err);
-      }
+  api.post('/register',async function(req, res){
 
-      passport.authenticate(
-        'local', {
-          session: false
-      })(req, res, () => {
-        res.status(200).send('Successfully created new account');
+
+    const emailExist= await Account.findOne({email:req.body.email});
+    if(emailExist){
+      return res.status(400).send("Email Already Exists");
+    }
+
+    //HASH password
+    var salt = bcrypt.genSaltSync(10);
+    var hash = bcrypt.hashSync(req.body.password, salt);
+
+     let account =new Account({
+       name:req.body.name,
+       password:hash,
+       email:req.body.email
       });
-    });
+
+
+     try {
+       const savedUser= account.save();
+       res.json({message:"User Sucessfully Saved"});
+     }catch(err){
+       res.status(400).send(err);
+     }
+
   });
 
-  // '/v1/account/login'
-  api.post('/login', (req,res)=>{
-     if(passport.authenticate(
-    'local', {
-      session: false,
-      scope: []
-    })
-  ){
-    generateAccessToken;
-    respond;
-  }
-  else{
-    res.json({message:"error"});
-  }
+  api.post('/login',async (req,res)=>{
+    //check if email is correct
+    const user= await Account.findOne({email:req.body.email});
+    if(!user){
+      return res.status(400).send("Email is Wrong");
+    }
+    //check if password is correct
+    const validatePassword= bcrypt.compareSync(req.body.password, user.password);
+    if(!validatePassword){
+      return res.status(400).send("Password is Wrong");
+    }
+    //create and assign tokken
+    const token= jwt.sign({_id:user._id},config.TokenSecret);
+    res.header('auth-token',token).send(token);
+
   });
 
-  // '/v1/account/logout'
-  api.get('/logout', authenticate, (req, res) => {
-    req.logout();
-    res.status(200).send('Successfully logged out');
-  });
 
-  api.get('/me', authenticate, (req, res) => {
-    res.status(200).json(req.user);
-  });
 
   return api;
 }
