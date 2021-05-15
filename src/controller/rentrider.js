@@ -2,12 +2,13 @@ import mongoose from 'mongoose';
 import { Router } from 'express';
 import bodyParser from 'body-parser';
 import RentRider from '../model/rentrider';
-import Review2 from '../model/review2'
+import Review2 from '../model/review2';
+const verify = require('../middleware/authMiddleware')
 export default({ config, db }) => {
   let api = Router();
   //CRUD Create Read Update Delete
   // '/v1/rentrider/add
-  api.post('/add', (req, res) => {
+  api.post('/add',verify, (req, res) => {
     let newRider = new RentRider();
     newRider.userid= req.body.userid;
     newRider.licenseno= req.body.licenseno;
@@ -40,7 +41,7 @@ export default({ config, db }) => {
   });
 
   //update a rider v1/rentrider/:id
-  api.put('/:id',(req,res)=>{
+  api.put('/:id',verify,(req,res)=>{
     RentRider.findById(req.params.id,(err,Rider)=>{
       if(err){
         res.send(err);
@@ -60,7 +61,7 @@ export default({ config, db }) => {
   });
 
   //delete a rider v1/rentrider/:id
-  api.delete('/:id',(req,res)=>{
+  api.delete('/:id',verify,(req,res)=>{
     RentRider.remove({
       _id:req.params.id
     },(err,rentrider)=>{
@@ -74,7 +75,7 @@ export default({ config, db }) => {
 
   //v1/rentrider/reviews/add/:id
   //route is to add ReviewSchema
-  api.post('/reviews/add/:id',(req,res)=>{
+  api.post('/reviews/add/:id',verify,(req,res)=>{
     RentRider.findById(req.params.id,(err,Rider)=>{
       if(err){
         res.send(err);
@@ -112,7 +113,7 @@ export default({ config, db }) => {
   });
 
 //delete a Review
-api.delete('/reviews/:id',(req,res)=>{
+api.delete('/reviews/:id',verify,(req,res)=>{
   Review2.remove({_id:req.params.id},(err,share)=>{
     if(err){
       res.send(err);

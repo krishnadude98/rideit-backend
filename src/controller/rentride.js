@@ -8,7 +8,7 @@ export default({ config, db }) => {
   let api = Router();
   //CRUD Create Read Update Delete
   // '/v1/rentride/add
-  api.post('/add',(req, res) => {
+  api.post('/add',verify,(req, res) => {
     let newRide = new RentRide();
     newRide.vehicleno= req.body.vehicleno;
     newRide.licenseno= req.body.licenseno;
@@ -80,7 +80,7 @@ export default({ config, db }) => {
 
   //v1/rentride/reviews/add/:id
   //route is to add ReviewSchema
-  api.post('/reviews/add/:id',(req,res)=>{
+  api.post('/reviews/add/:id',verify,(req,res)=>{
     RentRide.findById(req.params.id,(err,Ride)=>{
       if(err){
         res.send(err);
@@ -118,7 +118,7 @@ export default({ config, db }) => {
       });
     });
 
-    api.delete('/reviews/:id',(req,res)=>{
+    api.delete('/reviews/:id',verify,(req,res)=>{
       Review3.remove({_id:req.params.id},(err,share)=>{
         if(err){
           res.send(err);

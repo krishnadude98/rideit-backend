@@ -4,12 +4,12 @@ import ShareRide from '../model/share';
 import Review from '../model/review';
 import Bidder from '../model/bidder';
 import bodyParser from 'body-parser';
-
+const verify = require('../middleware/authMiddleware')
 export default({ config, db }) => {
   let api = Router();
   //CRUD Create Read Update Delete
   // '/v1/restaurant/add'
-  api.post('/add', (req, res) => {
+  api.post('/add',verify, (req, res) => {
     let newRide = new ShareRide();
     newRide.from = req.body.from;
     newRide.to = req.body.to;
@@ -69,7 +69,7 @@ export default({ config, db }) => {
   });
 
   //v1/share/:// IDEA:
-    api.delete('/:id',(req,res)=>{
+    api.delete('/:id',verify,(req,res)=>{
       ShareRide.remove({
         _id:req.params.id
       },(err,share)=>{
@@ -82,7 +82,7 @@ export default({ config, db }) => {
     });
     //add review for particular Advertisement
     //v1/reviews/add/:id is the path
-     api.post('/reviews/add/:id',(req,res)=>{
+     api.post('/reviews/add/:id',verify,(req,res)=>{
         ShareRide.findById(req.params.id,(err,advertisement)=>{
           if(err){
             res.send(err);
@@ -117,7 +117,7 @@ export default({ config, db }) => {
       });
 
       //add bidders for particular ad /bidders/added
-      api.post('/bidders/add/:id',(req,res)=>{
+      api.post('/bidders/add/:id',verify,(req,res)=>{
         ShareRide.findById(req.params.id,(err,advertisement)=>{
           if(err){
             res.send(err);

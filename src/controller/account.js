@@ -60,8 +60,8 @@ export default ({ config, db }) => {
     }
     //create and assign tokken
     const token= jwt.sign({_id:user._id},config.TokenSecret);
-    res.header('auth-token',token).send(token);
-
+    res.json({message:token});
+@Throws(AuthFailureError::class)
   });
 
 
