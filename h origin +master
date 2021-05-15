@@ -1,0 +1,83 @@
+[33mcommit f71c29959dabf3a2146a03e8b62477fd21d90364[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: hari <krishnadude98@gmail.com>
+Date:   Sat May 15 08:09:02 2021 +0530
+
+    slight changes done
+
+[33mcommit 00323c7e2b766c89ffba400cc862ad0e310521bb[m
+Author: root <root@ip-172-31-34-71.us-east-2.compute.internal>
+Date:   Wed May 12 17:05:23 2021 +0000
+
+    commit from server
+
+[33mcommit 7888abf991caec6c7318d81a29c249b2a82a2b74[m
+Author: hari <krishnadude98@gmail.com>
+Date:   Tue May 11 21:33:14 2021 +0530
+
+    ready for deployment
+
+[33mcommit a4bdef0604466093180ca41637fcc90fce2ebd85[m
+Author: hari <krishnadude98@gmail.com>
+Date:   Thu Apr 1 21:29:03 2021 +0530
+
+    authentication completed
+
+[33mcommit 0dd43f6d2f2f26519dc97c8251cfcbe07481d5c4[m
+Author: hari <krishnadude98@gmail.com>
+Date:   Thu Apr 1 13:39:53 2021 +0530
+
+    user registration is working
+
+[33mcommit 43371bfe064ad1709416fd0db7b6ff76de39a9b2[m[33m ([m[1;32m43371bfe064ad1709416fd0db7b6ff76de39a9b2[m[33m)[m
+Author: hari <krishnadude98@gmail.com>
+Date:   Sun Mar 28 16:15:26 2021 +0530
+
+    added all functionality of both 3 features
+
+[33mcommit 2d8c71aed2a2c0eb0552feae20ec2fbeb0e3f002[m
+Author: hari <krishnadude98@gmail.com>
+Date:   Sun Mar 28 01:38:04 2021 +0530
+
+    added code for renting a rider
+
+[33mcommit 8a11c7ec98acc8021d7963b24bdf4180019f94d8[m
+Author: hari <krishnadude98@gmail.com>
+Date:   Sun Mar 28 00:37:34 2021 +0530
+
+    added rent a rider iinterface to add riders
+
+[33mcommit 7e72270939ef824ea08bd62ecc449ef33bb040dc[m
+Author: hari <krishnadude98@gmail.com>
+Date:   Sun Mar 28 00:01:06 2021 +0530
+
+    added bids array
+
+[33mcommit 72bb3d8c77dc0eaa0b4c055dd5ebb1a5fbab8eb2[m
+Author: hari <krishnadude98@gmail.com>
+Date:   Sat Mar 27 23:33:41 2021 +0530
+
+    added review system from advertisement
+
+[33mcommit 04e98609bcc129849ed4e40f78b585c3411115d3[m
+Author: hari <krishnadude98@gmail.com>
+Date:   Sat Mar 27 13:07:26 2021 +0530
+
+    CVUD handling added
+
+[33mcommit 28f63a116494dce6797afee83db2b53971bc8250[m
+Author: hari <krishnadude98@gmail.com>
+Date:   Fri Mar 26 21:43:01 2021 +0530
+
+    post request of share a ride complete
+
+[33mcommit 57e6ceb8b206b1e772c6a9df5a07d93c0f797bd2[m
+Author: hari <krishnadude98@gmail.com>
+Date:   Fri Mar 26 13:49:21 2021 +0530
+
+    mongoDb connection code written
+
+[33mcommit 43e82041cf71af3e20d00b68b82606e5dc361ae7[m
+Author: hari <krishnadude98@gmail.com>
+Date:   Thu Mar 25 22:41:50 2021 +0530
+
+    indial skeliton
