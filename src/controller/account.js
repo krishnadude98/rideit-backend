@@ -60,7 +60,7 @@ export default ({ config, db }) => {
     }
     //create and assign tokken
     const token= jwt.sign({_id:user._id},config.TokenSecret);
-    res.header('auth-token',token).send({message:token});
+    res.header('auth-token',token).json({message:token});
 
   });
 
