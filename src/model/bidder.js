@@ -8,6 +8,7 @@ import ShareRide from './share';
       required:true
     },
     bid:Number,
+    name:String,
     shareride:{
       type:Schema.Types.ObjectId,
       ref:'ShareRide',

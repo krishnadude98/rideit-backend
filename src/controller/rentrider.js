@@ -90,7 +90,7 @@ export default({ config, db }) => {
         if(err){
           res.send(err);
         }
-        Rider.reviews.push(newReview);
+        Rider.reviews.concat(newReview);
         Rider.save(err=>{
           if(err){
             res.send(err);
@@ -118,7 +118,7 @@ api.delete('/reviews/:id',verify,(req,res)=>{
     if(err){
       res.send(err);
     }
-    res.json({messgae:"Review Deleted Susessfully"});
+    res.json({messgae:"Review Deleted Sucessfully"});
   });
 });
 

@@ -18,6 +18,22 @@ export default ({ config, db }) => {
     res.status(200).send({ user: req.user });
   });
 
+  // /v1/account/:email
+  api.get('/email/:email',(req,res)=>{
+    Account.find({email: req.params.email},(err,ac)=>{
+      res.json(ac);
+    });
+  });
+
+  api.get('/:id',(req,res)=>{
+      Account.findById(req.params.id,(err,account)=>{
+      if(err){
+        res.send(err);
+      }
+      res.json(account);
+    });
+  });
+
   // '/v1/account/register'
   api.post('/register',async function(req, res){
 

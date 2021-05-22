@@ -20,6 +20,7 @@ let shareRideSchema = new Schema({
   },
   vehiclemodel:String,
   eamount:String,
+  accountid:String,
   reviews:[{type:Schema.Types.ObjectId,ref:'Review'}],
   bidders:[{type:Schema.Types.ObjectId,ref:'Bidder'}]
 });

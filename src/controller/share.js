@@ -3,6 +3,7 @@ import { Router } from 'express';
 import ShareRide from '../model/share';
 import Review from '../model/review';
 import Bidder from '../model/bidder';
+
 import bodyParser from 'body-parser';
 const verify = require('../middleware/authMiddleware')
 export default({ config, db }) => {
@@ -18,7 +19,7 @@ export default({ config, db }) => {
     newRide.vehicleno = req.body.vehicleno;
     newRide.vehiclemodel = req.body.vehiclemodel;
     newRide.eamount = req.body.eamount;
-
+    newRide.accountid = req.body.accountid;
     newRide.save(function(err) {
       if (err) {
         res.send(err);
@@ -59,6 +60,7 @@ export default({ config, db }) => {
       shareRide.vehiclemodel = req.body.vehiclemodel;
       shareRide.eamount = req.body.eamount;
 
+
       shareRide.save(err=>{
         if(err){
           res.send(err);
@@ -95,7 +97,7 @@ export default({ config, db }) => {
             if(err){
               res.send(err);
             }
-            advertisement.reviews.push(newReview);
+            advertisement.reviews.concat(newReview);
             advertisement.save(err=>{
               if(err){
                 res.send(err);
@@ -106,6 +108,14 @@ export default({ config, db }) => {
           });
         });
      });
+     api.get('/account/:id',(req,res)=>{
+       ShareRide.find({accountid:req.params.id},(err,shareride)=>{
+         if(err){
+           res.send(err);
+         }
+         res.json(shareride);
+       });
+     });
      //get reviews for a particular /reviews/:id:
       api.get('/reviews/:id',(req,res)=>{
         Review.find({shareride:req.params.id},(err,reviews)=>{
@@ -113,6 +123,14 @@ export default({ config, db }) => {
             res.send(err);
           }
           res.json(reviews);
+        });
+      });
+      api.get('/bidders/:id',(req,res)=>{
+        Review.find({shareride:req.params.id},(err,bidders)=>{
+          if(err){
+            res.send(err);
+          }
+          res.json(bidders);
         });
       });
 
@@ -130,7 +148,7 @@ export default({ config, db }) => {
             if(err){
               res.send(err);
             }
-            advertisement.bidders.push(newBidder);
+            advertisement.bidders.concat(newBidder);
             advertisement.save(err=>{
               if(err){
                 res.send(err);

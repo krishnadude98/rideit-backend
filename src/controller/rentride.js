@@ -95,7 +95,7 @@ export default({ config, db }) => {
         if(err){
           res.send(err);
         }
-        Ride.reviews.push(newReview);
+        Ride.reviews.concat(newReview);
         Ride.save(err=>{
           if(err){
             res.send(err);

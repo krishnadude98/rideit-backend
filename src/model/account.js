@@ -20,12 +20,13 @@ let accountSchema = new Schema({
     type: 'String',
     required: true,
     max:255,
-    min:6
+    min:3
   },
   date:{
     type:Date,
     default:Date.now
-  }
+  },
+  phone:Number
 });
 
 
