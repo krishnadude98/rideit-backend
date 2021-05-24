@@ -126,7 +126,7 @@ export default({ config, db }) => {
         });
       });
       api.get('/bidders/:id',(req,res)=>{
-        Review.find({shareride:req.params.id},(err,bidders)=>{
+        Bidder.find({shareride:req.params.id},(err,bidders)=>{
           if(err){
             res.send(err);
           }
