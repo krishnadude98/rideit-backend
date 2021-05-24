@@ -24,7 +24,7 @@ export default({ config, db }) => {
       if (err) {
         res.send(err);
       }
-      res.json({ message: 'Advertisement added sucessfuly' });
+      res.json({ message: 'Advertisement added sucessfully' });
     });
   });
   //v1/share --Read
@@ -134,6 +134,7 @@ export default({ config, db }) => {
         });
       });
 
+
       //add bidders for particular ad /bidders/added
       api.post('/bidders/add/:id',verify,(req,res)=>{
         ShareRide.findById(req.params.id,(err,advertisement)=>{
@@ -143,6 +144,7 @@ export default({ config, db }) => {
           let newBidder= new Bidder();
           newBidder.userid= req.body.userid;
           newBidder.bid= req.body.bid;
+          newBidder.name=req.body.name;
           newBidder.shareride=advertisement._id;
           newBidder.save((err,bidder)=>{
             if(err){
