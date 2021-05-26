@@ -12,11 +12,13 @@ let rentRiderSchema= new Schema({
     type:String,
     required:true
   },
-
+  lat:Number,
+  long:Number,
   imageid:{
     type:String,
     required:true
   },
+  licensetype:String,
   reviews:[{type:Schema.Types.ObjectId,ref:'Review2'}]
 });
 

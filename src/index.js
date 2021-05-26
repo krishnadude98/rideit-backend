@@ -11,7 +11,7 @@ app.server = http.createServer(app);
 // middleware
 // parse application/json
 app.use(express.json());
-
+app.use('/uploads',express.static('uploads'));
 // passport config
 
 // api routes v1

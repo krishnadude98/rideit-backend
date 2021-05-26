@@ -3,17 +3,46 @@ import { Router } from 'express';
 import bodyParser from 'body-parser';
 import RentRider from '../model/rentrider';
 import Review2 from '../model/review2';
-const verify = require('../middleware/authMiddleware')
+const verify = require('../middleware/authMiddleware');
+import multer from 'multer';
+const storage= multer.diskStorage({
+  destination:function(req,file,cb){
+    cb(null,'uploads/');
+  },
+  filename:function(req,file,cb){
+    var random=Math.floor(Math.random()*1000)
+
+    cb(null,random+file.originalname);
+  }
+});
+const fileFilter =(req,file,cb)=>{
+  if(file.mimetype==='image/jpeg'||file.mimetype==='image/png'){
+    cb(null,true);
+  }
+  else{
+    cb(null,false);
+  }
+};
+
+const upload= multer({storage:storage,limits:{
+  fileSize:1024*1024*10
+},
+fileFilter:fileFilter
+});
+
 export default({ config, db }) => {
   let api = Router();
   //CRUD Create Read Update Delete
   // '/v1/rentrider/add
-  api.post('/add',verify, (req, res) => {
+  api.post('/add',verify,upload.single('riderimg'), (req, res) => {
+    console.log(req.file);
     let newRider = new RentRider();
     newRider.userid= req.body.userid;
     newRider.licenseno= req.body.licenseno;
-    newRider.rating= req.body.rating;
-    newRider.imageid=req.body.imageid;
+    newRider.licensetype = req.body.licensetype;
+    newRider.imageid=req.file.path;
+    newRider.lat=req.body.lat;
+    newRider.long=req.body.long;
     newRider.save(function(err) {
       if (err) {
         res.send(err);
