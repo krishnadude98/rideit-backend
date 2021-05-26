@@ -5,6 +5,7 @@ import RentRider from '../model/rentrider';
 import Review2 from '../model/review2';
 const verify = require('../middleware/authMiddleware');
 import multer from 'multer';
+const fs = require('fs')
 const storage= multer.diskStorage({
   destination:function(req,file,cb){
     cb(null,'uploads/');
@@ -91,6 +92,20 @@ export default({ config, db }) => {
 
   //delete a rider v1/rentrider/:id
   api.delete('/:id',verify,(req,res)=>{
+    var loc;
+    RentRider.findById(req.params.id,(err,Rider)=>{
+      if(err){
+        res.send(err);
+      }
+      loc= Rider.imageid
+      fs.unlink(loc, (err) => {
+      if (err) {
+        res.send(err)
+
+      }
+      });
+    });
+
     RentRider.remove({
       _id:req.params.id
     },(err,rentrider)=>{
