@@ -18,6 +18,7 @@ let rentRiderSchema= new Schema({
     type:String,
     required:true
   },
+  contact:String,
   licensetype:String,
   reviews:[{type:Schema.Types.ObjectId,ref:'Review2'}]
 });
