@@ -44,6 +44,7 @@ export default({ config, db }) => {
     newRider.imageid=req.file.path;
     newRider.lat=req.body.lat;
     newRider.long=req.body.long;
+    newRider.contact=req.body.contact;
     newRider.save(function(err) {
       if (err) {
         res.send(err);
